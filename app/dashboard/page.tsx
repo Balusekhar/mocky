@@ -1,5 +1,5 @@
-import { auth } from "@/auth";
-import { Button } from "@/components/ui/button";
+import {auth} from "@/auth";
+import {Button} from "@/components/ui/button";
 import {
   Brain,
   ChevronRight,
@@ -10,7 +10,7 @@ import {
   Server,
 } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import {redirect} from "next/navigation";
 
 const interviewCategories = [
   {
@@ -20,11 +20,11 @@ const interviewCategories = [
     icon: Code2,
     topics: [
       {
-        name: "React.js Interview",
+        name: "React.js",
         description: "Components, Hooks, State Management",
       },
-      { name: "Vue.js Interview", description: "Vue 3, Composition API, Vuex" },
-      { name: "Angular Interview", description: "Components, Services, RxJS" },
+      {name: "Vue.js", description: "Vue 3, Composition API, Vuex"},
+      {name: "Angular", description: "Components, Services, RxJS"},
     ],
   },
   {
@@ -34,11 +34,11 @@ const interviewCategories = [
     icon: Server,
     topics: [
       {
-        name: "Node.js Interview",
+        name: "Node.js",
         description: "Express, APIs, Authentication",
       },
-      { name: "Python Interview", description: "Django, Flask, FastAPI" },
-      { name: "Java Interview", description: "Spring Boot, Hibernate, JPA" },
+      {name: "Python", description: "Django, Flask, FastAPI"},
+      {name: "Java", description: "Spring Boot, Hibernate, JPA"},
     ],
   },
   {
@@ -47,9 +47,9 @@ const interviewCategories = [
     description: "SQL, NoSQL, System Design",
     icon: Database,
     topics: [
-      { name: "SQL Interview", description: "Queries, Optimization, Design" },
-      { name: "MongoDB Interview", description: "Schema Design, Aggregation" },
-      { name: "System Design", description: "Scalability, Performance" },
+      {name: "SQL", description: "Queries, Optimization, Design"},
+      {name: "MongoDB", description: "Schema Design, Aggregation"},
+      {name: "System Design", description: "Scalability, Performance"},
     ],
   },
   {
@@ -58,10 +58,10 @@ const interviewCategories = [
     description: "AWS, Docker, Kubernetes",
     icon: Network,
     topics: [
-      { name: "AWS Interview", description: "EC2, S3, Lambda" },
-      { name: "Docker Interview", description: "Containers, Compose" },
+      {name: "AWS", description: "EC2, S3, Lambda"},
+      {name: "Docker", description: "Containers, Compose"},
       {
-        name: "Kubernetes Interview",
+        name: "Kubernetes",
         description: "Orchestration, Deployment",
       },
     ],
@@ -72,9 +72,9 @@ const interviewCategories = [
     description: "End-to-end application development",
     icon: Globe,
     topics: [
-      { name: "MERN Stack", description: "MongoDB, Express, React, Node" },
-      { name: "MEAN Stack", description: "MongoDB, Express, Angular, Node" },
-      { name: "JAMstack", description: "JavaScript, APIs, Markup" },
+      {name: "MERN Stack", description: "MongoDB, Express, React, Node"},
+      {name: "MEAN Stack", description: "MongoDB, Express, Angular, Node"},
+      {name: "JAMstack", description: "JavaScript, APIs, Markup"},
     ],
   },
   {
@@ -83,8 +83,8 @@ const interviewCategories = [
     description: "Soft skills and leadership",
     icon: Brain,
     topics: [
-      { name: "Leadership", description: "Team Management, Decision Making" },
-      { name: "Problem Solving", description: "Critical Thinking, Analysis" },
+      {name: "Leadership", description: "Team Management, Decision Making"},
+      {name: "Problem Solving", description: "Critical Thinking, Analysis"},
       {
         name: "Communication",
         description: "Team Collaboration, Presentation",
@@ -126,7 +126,7 @@ async function page() {
             <div className="p-6">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <category.icon className="h-6 w-6 text-primary" />
+                  <category.icon className="h-6 w-6 text-primary"/>
                 </div>
                 <div>
                   <h2 className="font-semibold leading-none tracking-tight">
@@ -142,9 +142,7 @@ async function page() {
                 {category.topics.map((topic) => (
                   <Link
                     key={topic.name}
-                    href={`/dashboard/interview/${
-                      category.id
-                    }/${encodeURIComponent(topic.name)}`}
+                    href={`/dashboard/interview/${encodeURIComponent(topic.name)}`}
                     className="flex items-center justify-between rounded-md p-2 text-sm hover:bg-accent hover:text-accent-foreground">
                     <div>
                       <div className="font-medium">{topic.name}</div>
@@ -152,7 +150,7 @@ async function page() {
                         {topic.description}
                       </div>
                     </div>
-                    <ChevronRight className="h-4 w-4" />
+                    <ChevronRight className="h-4 w-4"/>
                   </Link>
                 ))}
               </div>
