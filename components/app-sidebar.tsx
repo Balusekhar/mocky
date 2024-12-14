@@ -49,7 +49,7 @@ export async function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar>
       <SidebarHeader className="group-data-[collapsible=icon]:hidden pt-4 ps-6 text-3xl font-bold mb-6">
         Mocky
       </SidebarHeader>

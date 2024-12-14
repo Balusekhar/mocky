@@ -1,7 +1,9 @@
-"use server"
-import {GoogleGenerativeAI} from "@google/generative-ai"
+"use server";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY as string);
+const genAI = new GoogleGenerativeAI(
+  process.env.NEXT_PUBLIC_GEMINI_API_KEY as string
+);
 
 interface InterviewDetails {
   topic: string;
@@ -11,7 +13,8 @@ interface InterviewDetails {
 }
 
 export const generateQuestions = async (interviewDetails: InterviewDetails) => {
-  const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
+  console.log("interviewData in generateQuestion:", interviewDetails);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   // Determine the number of questions based on the interview duration
   let numberOfQuestions;
@@ -38,6 +41,7 @@ export const generateQuestions = async (interviewDetails: InterviewDetails) => {
   - No questions should be practical (e.g.,coding tasks, or problem-solving).
   - Give importance to the selected topic and role of the candidate.
   - All questions should be conceptual (e.g., theoretical or framework-related).
+  - Ask questions like a real interviewer would.
   - At least one question should assess the candidate's ability to apply their knowledge to real-world challenges.
 
   Format the response as a JSON array where each entry has "question" and "answer" fields. For example:
@@ -54,11 +58,11 @@ export const generateQuestions = async (interviewDetails: InterviewDetails) => {
 
     // Clean up the AI response to remove any formatting artifacts like ```json
     const cleanedResponseText = responseText
-      .replace(/```json/g, '')
-      .replace(/```/g, '')
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
       .trim();
 
-    console.log("cleanedResponseText in server action", cleanedResponseText);
+    // console.log("cleanedResponseText in server action", cleanedResponseText);
 
     // Return the cleaned JSON response as a JavaScript object/array
     return cleanedResponseText;
