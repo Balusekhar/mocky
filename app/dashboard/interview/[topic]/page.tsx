@@ -26,9 +26,9 @@ export default function Component() {
   const router = useRouter();
   const [webcamEnabled, setWebcamEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [generatedQuestions, setGeneratedQuestions] =
-    useState<GenerateQuestionsResponse>();
-  const [interviewDetails, setInterviewDetails] = useState<InterviewDetails>();
+  // const [generatedQuestions, setGeneratedQuestions] =
+  //   useState<GenerateQuestionsResponse>();
+  // const [interviewDetails, setInterviewDetails] = useState<InterviewDetails>();
 
   type InterviewDetails = {
     topic: string;
@@ -67,22 +67,16 @@ export default function Component() {
         const interviewQuestions = await generateQuestions(data);
 
         // Parse the response explicitly as JSON
-        const parsedQuestions = JSON.parse(JSON.stringify(interviewQuestions));
-        console.log("Parsed Questions:", parsedQuestions);
+        // const parsedQuestions = JSON.parse(JSON.stringify(interviewQuestions));
+        // console.log("Parsed Questions:", parsedQuestions);
 
-        setGeneratedQuestions(parsedQuestions);
-        setInterviewDetails(data);
         setLoading(false);
 
-        router.push(`/start/${uuidv4()}`);
+        const interviewId = uuidv4();
+        router.push(`/start/${interviewId}`);
 
-        // Check if generatedQuestions is not undefined
-        if (generatedQuestions) {
-          // Save questions to database
-          await saveQuestionsToDB(generatedQuestions, data);
-        } else {
-          toast.error("Questions are not generated properly.");
-        }
+        // console.log("generated questions", generateQuestions);
+        await saveQuestionsToDB(interviewQuestions, data, interviewId);
       } catch (e: unknown) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
