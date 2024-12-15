@@ -1,9 +1,10 @@
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signIn } from "@/auth";
+import { auth } from "../auth";
 
 export default async function Home() {
-
+  const session = await auth();
   return (
     <div className="min-h-screen bg-[#050505] relative overflow-x-hidden">
       {/* Updated background */}
