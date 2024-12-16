@@ -27,6 +27,7 @@ export async function saveQuestionsToDB(
   console.log("parsed questions", parsedQuestions);
   console.log("Type of parsedQuestions:", typeof parsedQuestions); // Should be 'object' for arrays
   console.log("Is Array?", Array.isArray(parsedQuestions)); // Should be true for arrays
+  console.log("interviewId in saveQuestionsInDB", interviewId);
 
   const interviewData = await prisma.interview.create({
     data: {

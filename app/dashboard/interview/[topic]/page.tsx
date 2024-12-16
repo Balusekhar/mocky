@@ -65,7 +65,6 @@ export default function Component() {
 
         // Generate questions with updated interview details
         const interviewQuestions = await generateQuestions(data);
-
         // Parse the response explicitly as JSON
         // const parsedQuestions = JSON.parse(JSON.stringify(interviewQuestions));
         // console.log("Parsed Questions:", parsedQuestions);
@@ -73,6 +72,7 @@ export default function Component() {
         setLoading(false);
 
         const interviewId = uuidv4();
+        console.log("interviewId in page.tsx", interviewId);
         router.push(`/start/${interviewId}`);
 
         // console.log("generated questions", generateQuestions);
