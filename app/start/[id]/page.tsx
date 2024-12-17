@@ -6,11 +6,14 @@ import { useParams } from "next/navigation";
 import Timer from "../../../components/Timer";
 import axios from "axios";
 import { CardHeader } from "@/components/ui/card";
+import Webcam from "react-webcam";
+import { Camera } from "lucide-react";
 
 const QuestionLayout = () => {
   const [questions, setQuestions] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [start, setStart] = useState(false);
+  const [webcamEnabled, setWebcamEnabled] = useState(true);
 
   const params = useParams<{ id: string }>();
 
@@ -74,8 +77,28 @@ const QuestionLayout = () => {
         </div>
 
         {/* Block Area */}
-        <div className="flex-1 flex items-center justify-center bg-gray-100 rounded-md mb-6 border border-gray-300 shadow-inner">
-          Block
+        {/* Block Area with Webcam */}
+        <div className="relative flex-1 flex items-center justify-center bg-gray-100 rounded-md mb-6 border border-gray-300 shadow-inner overflow-hidden">
+          {webcamEnabled ? (
+            <Webcam mirrored={true} className="w-full h-full object-cover" />
+          ) : (
+            <div className="flex flex-col items-center justify-center text-center">
+              <Camera className="h-16 w-16 text-gray-400" />
+              <p className="text-gray-600 mt-2">Camera is off</p>
+            </div>
+          )}
+          {/* Camera Toggle Button */}
+          <Button
+            onClick={() => setWebcamEnabled((prev) => !prev)}
+            variant="ghost"
+            size="icon"
+            className="absolute bottom-4 right-4 bg-white shadow-md rounded-full p-2 hover:bg-gray-200">
+            {webcamEnabled ? (
+              <Camera className="h-6 w-6 text-green-500" />
+            ) : (
+              <Camera className="h-6 w-6 text-gray-400" />
+            )}
+          </Button>
         </div>
 
         {/* Buttons and Timer */}

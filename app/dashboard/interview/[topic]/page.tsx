@@ -69,11 +69,11 @@ export default function Component() {
         // const parsedQuestions = JSON.parse(JSON.stringify(interviewQuestions));
         // console.log("Parsed Questions:", parsedQuestions);
 
-        setLoading(false);
-
+        
         const interviewId = uuidv4();
         console.log("interviewId in page.tsx", interviewId);
         router.push(`/start/${interviewId}`);
+        setLoading(false);
 
         // console.log("generated questions", generateQuestions);
         await saveQuestionsToDB(interviewQuestions, data, interviewId);

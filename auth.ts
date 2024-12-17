@@ -11,41 +11,40 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile }) {
-      // After successful sign-in, save the user data
       if (account?.provider === "google") {
-        const existingUser = await prisma.user.findUnique({
+        // Find or create user in Prisma DB
+        const existingUser = await prisma.user.upsert({
           where: { email: user.email as string },
+          update: {}, // No update needed
+          create: {
+            email: user.email as string,
+            name: user.name,
+          },
         });
 
-        // If the user doesn't exist, create a new user
-        if (!existingUser) {
-          await prisma.user.create({
-            data: {
-              email: user.email as string,
-              name: user.name,
-            },
-          });
-        }
+        // Replace Google-provided ID with Prisma-generated ID
+        user.id = existingUser.id; // Attach Prisma ID to the user
       }
 
-      return true;
-    },
-    async session({ session, token }) {
-      // Add the user id to the session (can be used to fetch user data)
-      //@ts-ignore
-      session.user.id = token.id;
-      //@ts-ignore
-      session.user.email = token.email;
-      session.user.name = token.name;
-      return session;
+      return true; // Allow sign-in
     },
     async jwt({ token, user }) {
+      // Attach the Prisma user ID to the token
       if (user) {
-        token.id = user.id;
+        token.id = user.id; // Prisma ID
         token.email = user.email;
         token.name = user.name;
       }
       return token;
+    },
+    async session({ session, token }) {
+      // Attach the Prisma user ID to the session
+      //@ts-ignore
+      session.user.id = token.id; // Prisma ID
+      //@ts-ignore
+      session.user.email = token.email;
+      session.user.name = token.name;
+      return session;
     },
   },
 });

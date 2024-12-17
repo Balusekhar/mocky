@@ -20,7 +20,9 @@ export async function saveQuestionsToDB(
   interviewId: string
 ) {
   const session = await auth();
+  console.log("interviewId", interviewId);
   console.log("session", session);
+  console.log("session?.user?.id", session?.user?.id);
   if (!session?.user?.id) throw new Error("User is not authenticated");
 
   const parsedQuestions = JSON.parse(generateQuestions);
