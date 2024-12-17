@@ -1,15 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
+import Timer from "../../../components/Timer";
 import axios from "axios";
+import { CardHeader } from "@/components/ui/card";
 
-function StartInterview() {
+const QuestionLayout = () => {
   const [questions, setQuestions] = useState<any[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [start, setStart] = useState(false);
+
   const params = useParams<{ id: string }>();
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      if (!params.id) return; // Ensure `id` exists before making the request
+      if (!params.id) return;
 
       try {
         const response = await axios.get(
@@ -23,24 +30,84 @@ function StartInterview() {
     };
 
     fetchQuestions();
-  }, [params.id]); // Dependency is directly on `params.id`
+  }, [params.id]);
+
+  const handleStart = () => {
+    setStart(true);
+  };
+
+  const handleSkip = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % questions.length);
+    setStart(false);
+  };
+
+  const handleTimerComplete = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % questions.length);
+    setStart(false);
+  };
 
   return (
-    <div>
-      <h1>Interview Questions</h1>
-      {questions.length > 0 ? (
-        <ul>
-          {questions.map((question) => (
-            <li key={question.id}>
-              <strong>Q:</strong> {question.questionText}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading questions...</p>
-      )}
+    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      {/* Middle Container */}
+      <div className="w-[60%] h-[95%] bg-white rounded-lg shadow-lg flex flex-col p-6 border border-gray-200">
+        {/* Header Section */}
+        <div className="flex justify-between items-center border-b pb-4 mb-4">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Question {currentIndex + 1}
+          </h2>
+          <Badge
+            variant="outline"
+            className="text-sm px-4 py-1 bg-blue-50 text-blue-700 border-blue-300 rounded-full">
+            {questions.length > 0
+              ? `${currentIndex + 1} of ${questions.length}`
+              : "Loading..."}
+          </Badge>
+        </div>
+
+        {/* Question Text */}
+        <div className="text-lg font-bold text-center mb-6 bg-blue-50 px-6 py-4 rounded-md shadow">
+          <CardHeader>
+            {questions.length > 0
+              ? questions[currentIndex]?.questionText
+              : "Loading question..."}
+          </CardHeader>
+        </div>
+
+        {/* Block Area */}
+        <div className="flex-1 flex items-center justify-center bg-gray-100 rounded-md mb-6 border border-gray-300 shadow-inner">
+          Block
+        </div>
+
+        {/* Buttons and Timer */}
+        <div className="flex justify-between items-center gap-6">
+          {/* Start Button */}
+          <Button
+            disabled={start}
+            onClick={handleStart}
+            className="w-1/3 bg-primary hover:bg-primary/90 text-white font-medium py-2 rounded-md shadow-sm transition duration-200">
+            Start
+          </Button>
+
+          {/* Timer in the Center */}
+          <div className="w-1/3 flex justify-center pe-8 text-2xl font-semibold text-gray-800">
+            <Timer
+              durationinMillis={180000}
+              onComplete={handleTimerComplete}
+              start={start}
+            />
+          </div>
+
+          {/* Skip Button */}
+          <Button
+            onClick={handleSkip}
+            variant="outline"
+            className="w-1/3 border-gray-300 text-gray-700 hover:bg-secondary hover:text-secondary-foreground font-medium py-2 rounded-md shadow-sm transition duration-200">
+            {start ? "Next" : "Skip"}
+          </Button>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default StartInterview;
+export default QuestionLayout;
