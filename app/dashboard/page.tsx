@@ -22,6 +22,7 @@ const playgroundTopics = [
   { name: "Swift", description: "Swift playground" },
   { name: "C# playground", description: "C# playground powered by .NET" },
   { name: "From GitHub", description: "Clone any Git Repo" },
+  { name: "Cobol", description: "cobol interview" },
 ];
 
 export default async function Page() {

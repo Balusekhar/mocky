@@ -56,7 +56,8 @@ export default function Component() {
   });
 
   const onSubmit = async (data: InterviewDetails) => {
-    if (!webcamEnabled) {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    if (!webcamEnabled || !stream) {
       toast.error("Enable the webcam before starting the interview");
       return;
     } else {
@@ -69,14 +70,13 @@ export default function Component() {
         // const parsedQuestions = JSON.parse(JSON.stringify(interviewQuestions));
         // console.log("Parsed Questions:", parsedQuestions);
 
-        
         const interviewId = uuidv4();
+        await saveQuestionsToDB(interviewQuestions, data, interviewId);
         console.log("interviewId in page.tsx", interviewId);
-        router.push(`/start/${interviewId}`);
+        await router.push(`/start/${interviewId}`);
         setLoading(false);
 
         // console.log("generated questions", generateQuestions);
-        await saveQuestionsToDB(interviewQuestions, data, interviewId);
       } catch (e: unknown) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
