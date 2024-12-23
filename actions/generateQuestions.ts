@@ -42,6 +42,7 @@ export const generateQuestions = async (interviewDetails: InterviewDetails) => {
   - Give importance to the selected topic and role of the candidate.
   - All questions should be conceptual (e.g., theoretical or framework-related).
   - Ask questions like a real interviewer would.
+  - when giving the response, you must also give an answer. Give the correct answer for that question.
   - At least one question should assess the candidate's ability to apply their knowledge to real-world challenges.
 
   Format the response as a JSON array where each entry has "question" and "answer" fields. For example:

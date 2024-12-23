@@ -46,9 +46,9 @@ const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
       // Check if currentIndex is the last question
       if (currentIndex === questions.length) {
         console.log("Navigating to feedback page...");
-        router.push(`/feedback/${interviewId}`);
+        router.replace(`/feedback/${interviewId}`);
       }
-    };
+    };  
 
     routeToFeedbackPage();
   }, [currentIndex, questions.length, interviewId, router, questionsFetched]);
