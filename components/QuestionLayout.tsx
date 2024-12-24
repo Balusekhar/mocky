@@ -36,22 +36,14 @@ const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!questionsFetched) return;
-    if (currentIndex < questions.length) return;
+    if (!questionsFetched || questions.length === 0) return;
 
-    const routeToFeedbackPage = () => {
-      console.log("currentIndex", currentIndex);
-      console.log("questions length", questions.length);
-
-      // Check if currentIndex is the last question
-      if (currentIndex === questions.length) {
-        console.log("Navigating to feedback page...");
-        router.replace(`/feedback/${interviewId}`);
-      }
-    };  
-
-    routeToFeedbackPage();
-  }, [currentIndex, questions.length, interviewId, router, questionsFetched]);
+    // Only route when we've completed all questions
+    if (currentIndex >= questions.length) {
+      console.log("All questions completed, routing to feedback...");
+      router.replace(`/feedback/${interviewId}`);
+    }
+  }, [currentIndex, questions, questionsFetched, interviewId, router]);
 
   const startListen = () => {
     SpeechRecognition.startListening({ continuous: true });
