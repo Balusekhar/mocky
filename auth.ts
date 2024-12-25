@@ -9,6 +9,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     maxAge: 30 * 24 * 60 * 60, // Sessions expire after 30 days
     updateAge: 24 * 60 * 60, // Update session every 24 hours
   },
+  pages:{
+    error:"/error"
+  },
   callbacks: {
     async signIn({ user, account, profile }) {
       if (account?.provider === "google") {

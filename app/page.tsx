@@ -1,10 +1,21 @@
+"use client";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { signIn } from "@/auth";
-import { auth } from "../auth";
+import { useState } from "react";
+import { signIn } from "next-auth/react"
 
-export default async function Home() {
-  const session = await auth();
+export default function Home() {
+  const [loading, setLoading] = useState(false);
+  const handleSignIn = async () => {
+    setLoading(true);
+    try {
+     signIn("google", { redirectTo: "/dashboard" });
+    } catch (error) {
+      setLoading(false);
+      console.error("Sign-in failed", error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#050505] relative overflow-x-hidden">
       {/* Updated background */}
@@ -32,18 +43,17 @@ export default async function Home() {
             Enhance your interview skills with AI-generated questions. Get
             real-time feedback and improve your performance.
           </p>
-          <form
-            action={async () => {
-              "use server";
-              await signIn("google", { redirectTo: "/dashboard" });
-            }}>
-            <Button
-              variant="outline"
-              size="lg"
-              className="mt-8 bg-transparent text-white border-white/40 hover:bg-[#ff8b3e] text-lg px-8 py-6 transition-colors duration-500 ease-linear">
-              Start Interview <ArrowUpRight className="ml-2 h-5 w-5" />
-            </Button>
-          </form>
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={handleSignIn}
+            className={`mt-8 bg-transparent text-white border-white/40 ${
+              loading ? "cursor-not-allowed" : "hover:bg-[#ff8b3e]"
+            } text-lg px-8 py-6 transition-colors duration-500 ease-linear`}
+            disabled={loading}>
+            {loading ? "Signing In..." : "Start Interview"}{" "}
+            {!loading && <ArrowUpRight className="ml-2 h-5 w-5" />}
+          </Button>
         </div>
       </main>
     </div>
