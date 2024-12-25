@@ -3,7 +3,12 @@ import Google from "next-auth/providers/google";
 import prisma from "./db";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [Google],
+  providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID!,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
+    }),
+  ],
   session: {
     strategy: "jwt", // Use JWT for sessions
     maxAge: 30 * 24 * 60 * 60, // Sessions expire after 30 days
