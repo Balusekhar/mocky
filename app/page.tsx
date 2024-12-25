@@ -2,14 +2,15 @@
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { signIn } from "next-auth/react"
+import { signIn } from "next-auth/react";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const handleSignIn = async () => {
     setLoading(true);
     try {
-     signIn("google", { redirectTo: "/dashboard" });
+      signIn("google", { redirectTo: "/dashboard" });
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error("Sign-in failed", error);
