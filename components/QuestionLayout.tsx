@@ -18,14 +18,26 @@ type QuestionLayoutProps = {
   interviewId: string;
 };
 
+interface InterviewQuestion {
+  id: string;
+  interviewId: string;
+  questionText: string;
+  correctAnswer: string;
+  userAnswer: string | null;
+  createdAt: string;
+}
+
 const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
-  const [questions, setQuestions] = useState<any[]>([]);
+  const [questions, setQuestions] = useState<InterviewQuestion[]>([]);
+  console.log("questions in use state", questions);
   const [questionsFetched, setQuestionsFetched] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [start, setStart] = useState(false);
   const [webcamEnabled, setWebcamEnabled] = useState(true);
   const [timerEndTime, setTimerEndTime] = useState<number | null>(null);
-  const [currentQuestionId, setCurrentQuestionId] = useState(null);
+  const [currentQuestionId, setCurrentQuestionId] = useState<string | null>(
+    null
+  );
   const {
     transcript,
     listening,
@@ -54,7 +66,6 @@ const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
   };
 
   useEffect(() => {
-    console.log("isMicrophoneAvailable", isMicrophoneAvailable);
     const fetchQuestions = async () => {
       if (!interviewId) return;
 
@@ -78,10 +89,6 @@ const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
 
   const handleStart = async () => {
     try {
-      //   const stream = await navigator.mediaDevices.getUserMedia({
-      //     video: true,
-      //   });
-
       if (!isMicrophoneAvailable) {
         toast.error("Enable the microphone before starting the interview");
         return;
@@ -93,6 +100,7 @@ const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
       setStart(true);
     } catch (error) {
       toast.error("Enable the webcam before starting the interview");
+      console.log(error);
     }
   };
 
@@ -135,6 +143,7 @@ const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
         setCurrentQuestionId(questions[currentIndex + 1]?.id || null);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Something Went Wrong");
     }
   };
@@ -149,6 +158,7 @@ const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
         setTimerEndTime(null);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Something Went Wrong");
     }
   };

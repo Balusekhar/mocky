@@ -1,10 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Countdown, { CountdownRenderProps } from "react-countdown";
 import { CircleDot } from "lucide-react"; // Import recording icon
 
 function Timer({
-  durationinMillis,
   timerEndTime,
   onComplete,
   start,
@@ -12,7 +11,7 @@ function Timer({
   durationinMillis: number;
   timerEndTime: number | null; // Accept the fixed end time
   onComplete: () => void;
-  start: Boolean;
+  start: boolean;
 }) {
   const renderer = ({ minutes, seconds }: CountdownRenderProps) => (
     <div className="flex items-center justify-center space-x-2 text-3xl font-semibold">

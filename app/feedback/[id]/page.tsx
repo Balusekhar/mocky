@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import InterviewSummary from "@/components/InterviewDetails";
 import ShowQuestionAndAnswer from "@/components/ShowQuestionAndAnswer";
 import AIFeedback from "@/components/AIFeedback";
@@ -23,18 +23,28 @@ async function FeedbackPage({ params }: { params: Promise<{ id: string }> }) {
     interviewData = response.data?.interviewDetails;
     questionsData = response.data?.questionAndAnswers;
 
-    if (interviewData && questionsData) {
+    const aiFeedbackExists = await prisma.feedback.findFirst({
+      where: {
+        interviewId: interviewId,
+      },
+    });
+    if (aiFeedbackExists) {
+      aiFeedback = aiFeedbackExists.feedback;
+    } else if (interviewData && questionsData) {
+      // If no existing feedback, generate new feedback
       aiFeedback = await generateFeedback(interviewData, questionsData);
+
       if (aiFeedback) {
+        // Save the generated feedback to the database
         const saveFeedback = await prisma.feedback.create({
           data: {
             interviewId: interviewId as string,
             feedback: aiFeedback,
           },
         });
-        console.log("Feedback saved siccessfully"), saveFeedback;
+        console.log("Feedback saved successfully", saveFeedback);
       } else {
-        toast.error("Error Generating Feedback");
+        toast.error("Error generating feedback");
       }
     }
 
