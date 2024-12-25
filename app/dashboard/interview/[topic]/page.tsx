@@ -70,6 +70,10 @@ export default function Component() {
         // const parsedQuestions = JSON.parse(JSON.stringify(interviewQuestions));
         // console.log("Parsed Questions:", parsedQuestions);
 
+        if (!interviewQuestions) {
+          toast.error("failed to generate questions");
+          return;
+        }
         const interviewId = uuidv4();
         await saveQuestionsToDB(interviewQuestions, data, interviewId);
         console.log("interviewId in page.tsx", interviewId);

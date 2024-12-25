@@ -4,6 +4,8 @@ import ShowQuestionAndAnswer from "@/components/ShowQuestionAndAnswer";
 import AIFeedback from "@/components/AIFeedback";
 import axios from "axios";
 import { generateFeedback } from "@/actions/generateFeedback";
+import prisma from "@/db";
+import { toast } from "sonner";
 
 async function FeedbackPage({ params }: { params: Promise<{ id: string }> }) {
   const interviewId = (await params).id;
@@ -23,6 +25,17 @@ async function FeedbackPage({ params }: { params: Promise<{ id: string }> }) {
 
     if (interviewData && questionsData) {
       aiFeedback = await generateFeedback(interviewData, questionsData);
+      if (aiFeedback) {
+        const saveFeedback = await prisma.feedback.create({
+          data: {
+            interviewId: interviewId as string,
+            feedback: aiFeedback,
+          },
+        });
+        console.log("Feedback saved siccessfully"), saveFeedback;
+      } else {
+        toast.error("Error Generating Feedback");
+      }
     }
 
     console.log("Interview Data:", interviewData);
