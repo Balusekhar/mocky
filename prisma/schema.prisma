@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,34 +8,39 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(uuid()) // Unique User ID
-  email      String      @unique              // User email
-  name       String?                           // User name
-  interviews Interview[] // One-to-many relationship with interviews
+  id         String      @id @default(uuid())
+  email      String      @unique
+  name       String?
+  interviews Interview[]
 }
 
 model Interview {
-  id           String      @id @default(uuid()) 
-  topic        String      
-  role         String      
-  experience   String      
-  duration     Int         
-  createdAt    DateTime    @default(now())
-  
-  userId       String      // Foreign key reference to User
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  questions    Question[]  // One-to-many relationship with questions
+  id         String     @id @default(uuid())
+  topic      String
+  role       String
+  experience String
+  duration   String
+  createdAt  DateTime   @default(now())
+  userId     String
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questions  Question[]
+  feedback   Feedback?
 }
 
 model Question {
-  id           String      @id @default(uuid()) 
-  interviewId  String      
-  questionText String      
-  correctAnswer String     
-  userAnswer   String?     
-  feedback     String?     
-  createdAt    DateTime    @default(now())
+  id            String    @id @default(uuid())
+  interviewId   String
+  questionText  String
+  correctAnswer String
+  userAnswer    String?
+  createdAt     DateTime  @default(now())
+  interview     Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+}
 
-  interview    Interview   @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+model Feedback {
+  id          String    @id @default(uuid())
+  feedback    String
+  interviewId String    @unique
+  createdAt   DateTime  @default(now())
+  interview   Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
 }

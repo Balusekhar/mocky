@@ -37,7 +37,7 @@ export async function saveQuestionsToDB(
       topic: interviewDetails.topic,
       role: interviewDetails.role,
       experience: interviewDetails.yearsOfExperience,
-      duration: Number(interviewDetails.duration),
+      duration: interviewDetails.duration,
       userId: session.user.id,
       questions: {
         create: parsedQuestions.map((q: any) => ({

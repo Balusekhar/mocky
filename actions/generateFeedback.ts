@@ -16,7 +16,7 @@ interface interviewData {
   topic: string;
   role: string;
   experience: string;
-  duration: number;
+  duration: string;
   createdAt: string;
   userId: string;
 }
