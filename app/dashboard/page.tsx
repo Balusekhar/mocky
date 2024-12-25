@@ -1,6 +1,4 @@
-import { auth } from "@/auth";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 const playgroundTopics = [
   { name: "HTML/CSS", description: "Web design basics" },

@@ -65,11 +65,12 @@ export default function Component() {
         await router.push(`/start/${interviewId}`);
         setLoading(false);
       } catch (e: unknown) {
-        // @ts-ignore
-        toast.error(e.message);
-        setLoading(false);
-        console.log(e);
-        return;
+        if (e instanceof Error) {
+          toast.error(e.message);
+          setLoading(false);
+          console.log(e);
+          return;
+        }
       } finally {
         setLoading(false);
       }
