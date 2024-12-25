@@ -253,9 +253,6 @@ const QuestionLayout = ({ interviewId }: QuestionLayoutProps) => {
             {start ? "Next" : "Skip"}
           </Button>
         </div>
-        <div>
-          <p>Microphone: {listening ? "on" : "off"}</p>
-        </div>
       </div>
     </div>
   );

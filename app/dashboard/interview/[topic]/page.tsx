@@ -26,9 +26,6 @@ export default function Component() {
   const router = useRouter();
   const [webcamEnabled, setWebcamEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [generatedQuestions, setGeneratedQuestions] =
-  //   useState<GenerateQuestionsResponse>();
-  // const [interviewDetails, setInterviewDetails] = useState<InterviewDetails>();
 
   type InterviewDetails = {
     topic: string;
@@ -36,7 +33,7 @@ export default function Component() {
     yearsOfExperience: string;
     duration: string;
   };
-  
+
   const { handleSubmit, control } = useForm<InterviewDetails>({
     defaultValues: {
       topic: params.topic as string,
@@ -57,9 +54,6 @@ export default function Component() {
 
         // Generate questions with updated interview details
         const interviewQuestions = await generateQuestions(data);
-        // Parse the response explicitly as JSON
-        // const parsedQuestions = JSON.parse(JSON.stringify(interviewQuestions));
-        // console.log("Parsed Questions:", parsedQuestions);
 
         if (!interviewQuestions) {
           toast.error("failed to generate questions");
@@ -70,10 +64,7 @@ export default function Component() {
         console.log("interviewId in page.tsx", interviewId);
         await router.push(`/start/${interviewId}`);
         setLoading(false);
-
-        // console.log("generated questions", generateQuestions);
       } catch (e: unknown) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         toast.error(e.message);
         setLoading(false);

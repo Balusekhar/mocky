@@ -26,11 +26,6 @@ const playgroundTopics = [
 ];
 
 export default async function Page() {
-  const session = await auth();
-  if (!session) {
-    redirect("/");
-  }
-
   return (
     <div className="space-y-8 ms-14">
       <div className="flex items-center justify-between">
