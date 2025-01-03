@@ -15,13 +15,13 @@ export default function FeedbackError() {
             Feedback Not Found
           </AlertTitle>
           <AlertDescription className="mt-2 text-sm text-muted-foreground">
-            We couldn't find the feedback you're looking for. It might have been
-            deleted or never existed.
+            We couldn&#39;t find the feedback you&#39;re looking for. It might
+            have been deleted or never existed.
           </AlertDescription>
         </Alert>
 
         <div className="space-y-4">
-          <p className="text-muted-foreground">Don't worry! You can:</p>
+          <p className="text-muted-foreground">Don&#39;t worry! You can:</p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="outline">
