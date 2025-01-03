@@ -26,18 +26,18 @@ const InterviewSummary = ({
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <div className="flex items-center gap-2">
             <Code2 className="w-4 h-4 text-blue-500" />
-            <span className="font-medium">{interviewDetails.topic}</span>
+            <span className="font-medium">{interviewDetails?.topic}</span>
           </div>
           <Separator orientation="vertical" className="h-4" />
           <div className="flex items-center gap-2">
             <User2 className="w-4 h-4 text-purple-500" />
-            <span className="font-medium">{interviewDetails.role}</span>
+            <span className="font-medium">{interviewDetails?.role}</span>
           </div>
           <Separator orientation="vertical" className="h-4" />
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-green-500" />
             <span className="font-medium">
-              {interviewDetails.duration} minutes
+              {interviewDetails?.duration} minutes
             </span>
           </div>
           <Separator orientation="vertical" className="h-4" />
@@ -48,7 +48,7 @@ const InterviewSummary = ({
             </span>
           </div>
           <Badge variant="secondary" className="ml-auto">
-            {interviewDetails.experience} Experience
+            {interviewDetails?.experience} Experience
           </Badge>
         </div>
       </CardContent>

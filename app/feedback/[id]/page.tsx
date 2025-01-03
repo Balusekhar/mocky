@@ -52,7 +52,7 @@ async function FeedbackPage({ params }: { params: Promise<{ id: string }> }) {
     console.log("Questions Data:", questionsData);
     console.log("AI Feedback:", aiFeedback);
   } catch (error) {
-    console.error(
+    console.log(
       "Error fetching interview details or generating feedback:",
       error
     );
