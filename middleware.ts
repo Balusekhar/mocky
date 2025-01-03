@@ -2,10 +2,10 @@
 import { auth } from "@/auth"
  
 export default auth((req) => {
-  const isLoggedIn = !!req.auth
+  const isLoggedIn = Boolean(req.auth)
+  console.log("isLoggedIn",isLoggedIn)
   const isAuthenticatedRoute = req.nextUrl.pathname.startsWith('/dashboard') || 
-                              req.nextUrl.pathname.startsWith('/feedback') ||
-                              req.nextUrl.pathname.startsWith('/profile')
+                              req.nextUrl.pathname.startsWith('/feedback') 
   
   if (isAuthenticatedRoute && !isLoggedIn) {
     return Response.redirect(new URL('/', req.nextUrl))

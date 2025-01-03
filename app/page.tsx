@@ -7,8 +7,8 @@ import { signIn } from "next-auth/react";
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const handleSignIn = async () => {
-    setLoading(true);
     try {
+      setLoading(true);
       signIn("google", { redirectTo: "/dashboard" });
       setLoading(false);
     } catch (error) {

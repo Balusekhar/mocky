@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mocky
 
-## Getting Started
+![Mocky Website](./public/mocky.png)  
 
-First, run the development server:
+## 🌟 About Mocky
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Mocky** is an AI-powered mock interview platform designed to help users prepare for technical interviews. It allows users to select a technical topic, role, duration, and experience level to simulate a realistic interview experience. By requiring verbal answers, Mocky helps users enhance their communication skills. AI-driven feedback provides insights to improve performance effectively.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Deployed URL
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Experience Mocky live at: [https://mocky-chi.vercel.app/](https://mocky-chi.vercel.app/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Frontend**: [Next.js 15](https://nextjs.org/), [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/)
+- **Backend**: [Neon DB](https://neon.tech/), [Prisma ORM](https://www.prisma.io/)
+- **Authentication**: [Auth.js](https://authjs.dev/)
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Topic Selection**: Choose from a variety of technical topics for the interview.
+- **Customizable Interview**: Specify the target role, interview duration, and experience level.
+- **Communication Practice**: Users must speak their answers, improving verbal communication skills.
+- **AI Feedback**: Receive AI-generated feedback based on the answers provided during the interview.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---

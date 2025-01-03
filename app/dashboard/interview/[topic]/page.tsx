@@ -44,6 +44,10 @@ export default function Component() {
   });
 
   const onSubmit = async (data: InterviewDetails) => {
+    if (!data.role || !data.yearsOfExperience || !data.duration) {
+      toast.error("All details are required");
+      return;
+    }
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     if (!webcamEnabled || !stream) {
       toast.error("Enable the webcam before starting the interview");
